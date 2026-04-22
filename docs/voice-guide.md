@@ -1,6 +1,6 @@
 # Lavender Glow — Voice & Philosophy Guide
 
-*Draft v0.3, distilled from Thea's voice memos. For her review.*
+*Draft v0.4, distilled from Thea's voice memos. For her review.*
 
 ---
 
@@ -235,7 +235,7 @@ These are Thea's. The app uses them verbatim or in close echoes, and they become
 ## What's missing from mark 1 that should be added
 
 - **An "about your doshas" view after the quiz result.** Right now we go from result straight to recommendations. The moment after the result is when the user is most curious — that's where the colors metaphor and the body-anatomy grounding belong, before any food lists appear.
-- **Asana / movement.** Thea is an RYT, not just an ayurvedic practitioner. Movement tuned to dosha and season is in the name of the app and currently entirely absent. Biggest gap.
+- **Asana / movement.** Thea is an RYT, not just an ayurvedic practitioner. Movement tuned to dosha and season is in the name of the app. The data scaffold and recommendations screen section now exist (`data/content/movement.js`) — content awaits Thea's posture descriptions and benefit copy.
 - **A morning hunger question on the daily check-in.** One question, surfaced gently. Trends in this single signal are diagnostically meaningful over time.
 - **Evening / sleep guidance.** The janitor metaphor and the 10pm–2am window imply a whole evening side of the app that doesn't exist yet. Mark 1 is currently a daytime app.
 
