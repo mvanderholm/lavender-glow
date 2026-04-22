@@ -13,7 +13,9 @@
     "web": {
       "favicon": "./assets/icon.png",
       "bundler": "metro",
-      "output": "static"
+      "output": "static",
+      "backgroundColor": "#C2AACB",
+      "themeColor": "#C2AACB"
     },
     "ios": {
       "supportsTablet": true
