@@ -11,7 +11,7 @@
       "expo-router"
     ],
     "web": {
-      "favicon": "./assets/favicon.svg",
+      "favicon": "./assets/icon.png",
       "bundler": "metro",
       "output": "static"
     },
