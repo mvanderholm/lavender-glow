@@ -6,7 +6,7 @@ You are assisting on Lavender Glow, an ayurvedic companion app built with React 
 
 ## What Lavender Glow is
 
-Lavender Glow is **Thea's ayurvedic practice, in app form**. Thea is a credentialed ayurvedic practitioner and Registered Yoga Teacher (RYT). The name is her first name + *asana* (yoga postures).
+Lavender Glow is **Thea's ayurvedic practice, in app form**. Thea is a credentialed ayurvedic practitioner and Registered Yoga Teacher (RYT). The name Lavender Glow is the brand for her practice.
 
 This is not a generic wellness app with a credentialed advisor. It is one specific practitioner's worldview, voice, and methodology, made available to users between (or in lieu of) sessions with her. When in doubt about any content decision: "would Thea say this, in this way?" If no, it doesn't belong in the app.
 

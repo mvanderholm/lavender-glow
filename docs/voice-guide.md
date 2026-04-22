@@ -6,7 +6,7 @@
 
 ## What Lavender Glow actually is
 
-Lavender Glow is Thea's practice, in app form. Not a generic ayurveda app with a credentialed advisor — *her* worldview, *her* voice, *her* methodology, made available to users between sessions or in lieu of them. The name says it: Thea + asana. Her name leading, yoga as the foundation, ayurveda as the lens.
+Lavender Glow is Thea's practice, in app form. Not a generic ayurveda app with a credentialed advisor — *her* worldview, *her* voice, *her* methodology, made available to users between sessions or in lieu of them. The name Lavender Glow is the brand for her practice.
 
 When in doubt about a content decision: would Thea say this? Would she say it this way? If no, cut it.
 
