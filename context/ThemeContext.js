@@ -6,15 +6,15 @@ const THEME_KEY = '@lavender-glow/theme';
 const BRAND_KEY = '@lavender-glow/brand';
 
 const ThemeContext = createContext({
-  theme: themes.midnight,
-  themeName: 'midnight',
+  theme: themes.lavender,
+  themeName: 'lavender',
   setThemeName: () => {},
   brandStyle: 'wordmark',
   setBrandStyle: () => {},
 });
 
 export function ThemeProvider({ children }) {
-  const [themeName, setThemeNameState] = useState('midnight');
+  const [themeName, setThemeNameState] = useState('lavender');
   const [brandStyle, setBrandStyleState] = useState('wordmark');
 
   useEffect(() => {

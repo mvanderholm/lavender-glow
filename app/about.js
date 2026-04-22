@@ -61,9 +61,8 @@ export default function About() {
           <Text style={[styles.bookBtnText, { color: c.text }]}>Book a Session</Text>
         </Pressable>
 
+        {/* Theme switcher — commented out, defaulting to lavender. Uncomment to re-enable.
         <View style={styles.divider} />
-
-        {/* Theme switcher */}
         <Text style={[type.label, { textAlign: 'center' }]}>App Theme</Text>
         <View style={styles.swatchRow}>
           {SWATCHES.map(s => {
@@ -92,10 +91,10 @@ export default function About() {
             </Text>
           ))}
         </View>
+        */}
 
+        {/* Brand style toggle — commented out, defaulting to wordmark. Uncomment to re-enable.
         <View style={styles.divider} />
-
-        {/* Brand style toggle */}
         <Text style={[type.label, { textAlign: 'center' }]}>Branding</Text>
         <View style={styles.brandToggle}>
           {['wordmark', 'lettermark'].map(opt => {
@@ -116,6 +115,7 @@ export default function About() {
         <Text style={[type.muted, { fontSize: 12, textAlign: 'center', marginTop: spacing.sm }]}>
           Changes the logo on the home screen.
         </Text>
+        */}
 
         <View style={styles.divider} />
 
