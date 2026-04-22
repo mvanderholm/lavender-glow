@@ -1,0 +1,37 @@
+{
+  "expo": {
+    "name": "Lavender Glow",
+    "slug": "lavender-glow-mark1",
+    "version": "0.1.0",
+    "scheme": "lavender-glow",
+    "orientation": "portrait",
+    "userInterfaceStyle": "dark",
+    "icon": "./assets/icon.png",
+    "plugins": [
+      "expo-router"
+    ],
+    "web": {
+      "favicon": "./assets/favicon.svg",
+      "bundler": "metro",
+      "output": "static"
+    },
+    "ios": {
+      "supportsTablet": true
+    },
+    "android": {
+      "package": "com.lavenderglow.app",
+      "navigationBarColor": "#0E0B08",
+      "adaptiveIcon": {
+        "foregroundImage": "./assets/adaptive-icon.png",
+        "backgroundColor": "#0E0B08"
+      }
+    },
+    "extra": {
+      "router": {},
+      "eas": {
+        "projectId": "d69c5b4f-26fe-46cf-94bd-c7ed1acf5333"
+      }
+    },
+    "owner": "mvanderholm"
+  }
+}

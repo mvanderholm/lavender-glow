@@ -1,0 +1,194 @@
+import { View, Text, StyleSheet, Pressable, ScrollView, Modal } from 'react-native';
+import { SafeAreaView } from 'react-native-safe-area-context';
+import { useState } from 'react';
+import { concepts, tierLabels } from '../data/content/learn';
+import { useTheme } from '../context/ThemeContext';
+
+export default function Learn() {
+  const { theme: { colors, spacing, radius, type } } = useTheme();
+  const [selected, setSelected] = useState(null);
+  const styles = makeStyles(colors, spacing, radius);
+
+  const tiers = [1, 2, 3];
+
+  return (
+    <SafeAreaView edges={['bottom']} style={{ flex: 1, backgroundColor: colors.bg }}>
+      <ScrollView contentContainerStyle={styles.container}>
+        <Text style={type.label}>The Tradition</Text>
+        <Text style={[type.h1, { marginTop: spacing.sm }]}>Learn</Text>
+        <Text style={[type.muted, { marginTop: spacing.xs }]}>
+          Classical ayurvedic concepts, taught in Thea's voice. New entries added as she records them.
+        </Text>
+
+        {tiers.map(tier => {
+          const group = concepts.filter(c => c.tier === tier);
+          return (
+            <View key={tier} style={styles.tierBlock}>
+              <Text style={styles.tierLabel}>{tierLabels[tier]}</Text>
+              {group.map(concept => (
+                <Pressable
+                  key={concept.id}
+                  style={({ pressed }) => [styles.row, pressed && styles.rowPressed]}
+                  onPress={() => setSelected(concept)}
+                >
+                  <View style={styles.rowMain}>
+                    <Text style={type.body}>{concept.title}</Text>
+                    <Text style={[type.muted, { fontSize: 12, fontStyle: 'italic', marginTop: 2 }]}>
+                      {concept.sanskrit}
+                    </Text>
+                    <Text style={[type.muted, { marginTop: spacing.xs, fontSize: 14 }]}>
+                      {concept.teaser}
+                    </Text>
+                  </View>
+                  <View style={[styles.statusDot, concept.body ? styles.dotReady : styles.dotPending]} />
+                </Pressable>
+              ))}
+            </View>
+          );
+        })}
+
+        <Text style={styles.footer}>
+          · ready to read &nbsp;&nbsp; ○ coming soon
+        </Text>
+      </ScrollView>
+
+      <ConceptModal concept={selected} onClose={() => setSelected(null)} />
+    </SafeAreaView>
+  );
+}
+
+function ConceptModal({ concept, onClose }) {
+  const { theme: { colors, spacing, radius, type } } = useTheme();
+  const styles = makeStyles(colors, spacing, radius);
+  if (!concept) return null;
+
+  return (
+    <Modal
+      visible={!!concept}
+      transparent
+      animationType="slide"
+      onRequestClose={onClose}
+    >
+      <Pressable style={styles.backdrop} onPress={onClose} />
+      <View style={styles.sheet}>
+        <View style={styles.sheetHandle} />
+        <ScrollView showsVerticalScrollIndicator={false}>
+          <Text style={type.label}>{tierLabels[concept.tier]}</Text>
+          <Text style={[type.h1, { marginTop: spacing.xs }]}>{concept.title}</Text>
+          <Text style={[type.muted, { fontStyle: 'italic', marginTop: 2 }]}>{concept.sanskrit}</Text>
+
+          <View style={styles.bodyBlock}>
+            {concept.body ? (
+              <>
+                <Text style={[type.body, { lineHeight: 26 }]}>{concept.body}</Text>
+                {concept.attributedDate && (
+                  <Text style={styles.attribution}>Taught by Thea · {concept.attributedDate}</Text>
+                )}
+              </>
+            ) : (
+              <View style={styles.pendingBlock}>
+                <Text style={[type.muted, { textAlign: 'center' }]}>
+                  Thea is working on this one.
+                </Text>
+                <Text style={[type.muted, { textAlign: 'center', fontSize: 12, marginTop: spacing.xs }]}>
+                  Check back soon.
+                </Text>
+              </View>
+            )}
+          </View>
+        </ScrollView>
+
+        <Pressable style={styles.closeBtn} onPress={onClose}>
+          <Text style={styles.closeBtnText}>Close</Text>
+        </Pressable>
+      </View>
+    </Modal>
+  );
+}
+
+function makeStyles(colors, spacing, radius) {
+return StyleSheet.create({
+  container: { padding: spacing.lg },
+  tierBlock: { marginTop: spacing.xl },
+  tierLabel: {
+    color: colors.textMuted,
+    fontSize: 11,
+    fontWeight: '700',
+    letterSpacing: 1,
+    textTransform: 'uppercase',
+    marginBottom: spacing.sm,
+  },
+  row: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    padding: spacing.md,
+    backgroundColor: colors.surface,
+    borderRadius: radius.lg,
+    marginTop: spacing.sm,
+    borderWidth: 1,
+    borderColor: colors.border,
+  },
+  rowPressed: { opacity: 0.6 },
+  rowMain: { flex: 1 },
+  statusDot: {
+    width: 10,
+    height: 10,
+    borderRadius: 5,
+    marginLeft: spacing.md,
+  },
+  dotReady: { backgroundColor: colors.sage },
+  dotPending: {
+    backgroundColor: 'transparent',
+    borderWidth: 1.5,
+    borderColor: colors.border,
+  },
+  footer: {
+    marginTop: spacing.xl,
+    color: colors.textMuted,
+    fontSize: 12,
+    textAlign: 'center',
+  },
+
+  // modal
+  backdrop: { flex: 1, backgroundColor: 'rgba(0,0,0,0.6)' },
+  sheet: {
+    backgroundColor: colors.surface,
+    borderTopLeftRadius: 24,
+    borderTopRightRadius: 24,
+    padding: spacing.lg,
+    paddingBottom: spacing.xl,
+    maxHeight: '80%',
+  },
+  sheetHandle: {
+    width: 40,
+    height: 4,
+    backgroundColor: colors.border,
+    borderRadius: 2,
+    alignSelf: 'center',
+    marginBottom: spacing.lg,
+  },
+  bodyBlock: { marginTop: spacing.xl },
+  pendingBlock: {
+    padding: spacing.xl,
+    backgroundColor: colors.surfaceAlt,
+    borderRadius: radius.lg,
+    alignItems: 'center',
+  },
+  attribution: {
+    marginTop: spacing.lg,
+    color: colors.textMuted,
+    fontSize: 12,
+    fontStyle: 'italic',
+  },
+  closeBtn: {
+    marginTop: spacing.lg,
+    backgroundColor: colors.surfaceAlt,
+    paddingVertical: spacing.md,
+    borderRadius: radius.pill,
+    alignItems: 'center',
+    borderWidth: 1,
+    borderColor: colors.border,
+  },
+  closeBtnText: { color: colors.text, fontWeight: '600', fontSize: 16 },
+});
+}
