@@ -76,11 +76,11 @@ function AppNavigator() {
         <WebLayout>{stack}</WebLayout>
       ) : (
         <View style={isWeb
-          ? { flex: 1, alignItems: 'center', backgroundColor: c.bg }
+          ? { flex: 1, height: '100%', alignItems: 'center', backgroundColor: c.bg }
           : { flex: 1 }
         }>
           <View style={isWeb
-            ? { flex: 1, width: '100%', maxWidth: 480 }
+            ? { flex: 1, height: '100%', width: '100%', maxWidth: 480 }
             : { flex: 1 }
           }>
             {stack}
