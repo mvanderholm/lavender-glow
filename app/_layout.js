@@ -73,7 +73,9 @@ function AppNavigator() {
     <>
       <StatusBar style={theme.statusBar} />
       {isWebMode ? (
-        <WebLayout>{stack}</WebLayout>
+        <View style={{ width: '100%', height: '100vh' }}>
+          <WebLayout>{stack}</WebLayout>
+        </View>
       ) : (
         <View style={isWeb
           ? { width: '100%', height: '100vh', alignItems: 'center', backgroundColor: c.bg }
