@@ -39,8 +39,9 @@ export const concepts = [
     title: 'Digestive Fire',
     sanskrit: 'Agni',
     teaser: 'The force that transforms what you take in — food, experience, emotion.',
-    body: null,
-    attributedDate: null,
+    // DRAFT — distilled from Thea's voice memo, April 2026. For her review before this is treated as final.
+    body: `Agni is your digestive fire — the force that transforms whatever you take in. Food, yes. But also experience. Also emotion. The question isn't just what you eat. It's how well you process it.\n\nThink of a literal fire. Too big, and it's destructive. Too small, and nothing actually gets cooked. Balanced — that's the sweet spot. That balance is what practice is always moving you toward.\n\nAgni lives physically in the gut as metabolic heat. It also lives in the mind as clarity — the capacity to actually move through something, understand it, and let it go. When mental agni is strong, you process your day. When it's dim, things pile up.\n\nThe two are connected. Anything you're carrying mentally — check the body. The body is keeping score.`,
+    attributedDate: 'April 2026',
   },
   {
     id: 'ama',
@@ -48,8 +49,9 @@ export const concepts = [
     title: 'Toxic Accumulation',
     sanskrit: 'Ama',
     teaser: 'What builds up when digestion is incomplete.',
-    body: null,
-    attributedDate: null,
+    // DRAFT — distilled from Thea's voice memo, April 2026. For her review before this is treated as final.
+    body: `Ama is what accumulates when agni can't keep up. Undigested food. Undigested experience. Undigested emotion. Same mechanism, different substance.\n\nIts texture: heavy, cold, slimy, dense. It has a lot of kapha in it — that sticky, damp, impeding quality. And while it looks like kapha, ama mixes with all three doshas and changes how each one behaves. Vata, normally dry and light, becomes heavy and damp when ama is in the mix. Pitta, normally hot and sharp, becomes cooler and sluggish. Kapha, already slow, can become completely stuck.\n\nOne of the cleanest ways to check for ama: your tongue first thing in the morning, before eating or drinking anything. Scrape front to back — a spoon works fine if you don't have a tongue scraper. What comes off is ama. That coating is your body's morning report.\n\nAma is also a mental and emotional phenomenon. Negative emotions carry the same qualities — dark, damp, heavy, sticky. They dim mental agni, and when mental agni dims, physical agni follows. The check-in question "what are you carrying that hasn't been processed yet?" is the ama question. The body holds what the mind hasn't metabolized.\n\nTreatment always starts with clearing ama before going after the dosha directly. You can't clean the plate in the dishwasher if the food is still stuck to it — you have to rinse first. Once the body is clear, the deeper work becomes possible.`,
+    attributedDate: 'April 2026',
   },
 
   // ─── Tier 2 — Deepening ─────────────────────────────────────────────────────

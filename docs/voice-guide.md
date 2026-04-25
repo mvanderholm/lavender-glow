@@ -191,6 +191,52 @@ Keep the language human, playful, and specific. This is dosha guidance for peopl
 
 ---
 
+## Ama and agni — the digestion foundation
+
+*Distilled from Thea's voice memo. Awaiting her review. This is almost certainly "the other part" she mentioned at the end of the dosha transcript — the piece she said was hard to teach the doshas without.*
+
+**Agni: the fire.**
+
+Agni is how you process things — food, experience, emotion. Thea's teaching image: a literal fire. Too big, not good. Too small, not great. Balanced is perfect. This framing should run through every digestion-related recommendation the app makes. Agni lives physically in the gut as metabolic fire, and mentally as clarity — the capacity to move through an experience rather than accumulate it.
+
+**Ama: the accumulation.**
+
+Ama is what builds up when agni can't keep up. Undigested food, undigested experience, undigested emotion — same mechanism, different substance. Her texture description: heavy, cold, slimy, dense. Kapha-like quality, but it mixes with all three doshas.
+
+Her canonical teaching tool: the morning tongue scraper. Before eating or drinking anything, scrape front to back (a spoon works). What comes off is ama. Thea's delivery: "Yeah, enjoy that."
+
+**The body holds the score.**
+
+Thea uses this phrase explicitly. Negative emotions share ama's properties — dark, damp, heavy, sticky. They quench mental agni, and when mental agni dims, physical agni follows. The daily check-in's job isn't only "how's your digestion" — it's "what are you carrying that hasn't been processed yet?" This is what makes the check-in clinical, not just reflective.
+
+**How ama combines with the doshas.**
+
+When ama mixes with a dosha, the result is called *sama* (Sanskrit: with ama). Each has a distinct texture:
+
+- **Vata sama:** gas, bloating, constipation, cramping, tongue coating, foul breath. Aggravated by cold, cloudy weather. Notably, vata ama reverses vata's usual dry, light character — it becomes heavy and damp.
+- **Pitta sama:** yellow or greenish tongue coating, yellowish/green stool, lack of appetite *and* thirst, heaviness in the stomach, bitter or sour taste, burning, rashes. Aggravated by cold — the ama is blocking pitta's heat rather than expressing it. Pitta, normally hot and sharp, cools down and becomes sluggish when mixed with ama.
+- **Kapha sama:** white mucus-like tongue coating, phlegm in throat and stool, sour or salty taste, chest congestion, fatigue, heavy dull aching. Kapha already tends toward stuck; ama makes it stickier and sometimes immobile.
+
+This matters clinically: a dosha behaves differently with ama than without it. What would normally aggravate a dosha may relieve its sama version. You have to know which you're treating.
+
+**The treatment sequence.**
+
+Clear ama before treating the dosha — always in that order. Thea's metaphor: if there's a pile of food stuck to the plate, putting it in the dishwasher won't clean it. "You gotta get that shit out." Tonification, rebuilding, and nourishing work are only possible once the body is clear.
+
+*Bitter herbs go first* (air + ether: separates and loosens ama from the tissues). *Pungent herbs follow* (fire + air: burns it up and revives the metabolism). Sweet, salty, and sour tastes feed ama. Fasting until the tongue clears and genuine appetite returns is a legitimate first step. Astringent taste has mixed effects and works as a supplement, not a primary treatment.
+
+The usual clinical sequence: move the sama condition toward *nirama* (without ama), then work the dosha directly.
+
+**What this means for the app.**
+
+The tongue-coating question belongs in the morning check-in alongside hunger — it's a body-grounded signal the app can track over time without requiring a practitioner to interpret it in real time.
+
+The ama/agni distinction also guards against a common recommendation failure: sending nourishing, building recommendations to a body that first needs to clear. The app should eventually know the difference between "you need more" and "you need to clear first."
+
+*The specific herb suggestions and clinical treatment protocols in the voice memo are Thea's to finalize. What's here reflects her teaching framing, not finished clinical guidance.*
+
+---
+
 ## Tone rules
 
 - Warm, funny, a little irreverent. A friend on a walk, not a guru on a cushion.
@@ -220,6 +266,10 @@ These are Thea's. The app uses them verbatim or in close echoes, and they become
 - **Morning hunger** as one of the cleanest single signals of digestive fire.
 - The **80/20 framework** — "80% of the time you know what to do. 20% of the time, you also know what you're doing — own it." The cheeseburger example is the canonical teaching story for this: a fully present, fully enjoyed cheeseburger beats a resentful bowl of kitchari eaten in disgust in your car.
 - **"Just for today, I will ___."** — the daily intention format. One day, one thing, no streak pressure.
+- The **tongue scraper as ama detector** — scrape before eating or drinking, see what comes off. Her delivery: "Yeah, enjoy that." The canonical entry point to the ama/agni teaching.
+- The **dishwasher metaphor** for ama clearance — you can't clean the plate if food is stuck to it. "You gotta get that shit out." This is her phrase; keep it.
+- The **fire image for agni** — "too big a fire, not good; too small a fire, not great; balanced is perfect." Use it anywhere digestion or processing comes up.
+- ***Sama* (with ama) vs. *nirama* (without ama)** — the clinical distinction underneath every treatment sequence. Teach it the way she does: the dosha behaves differently with ama than without, and you have to know which you're addressing.
 
 ---
 
@@ -236,7 +286,7 @@ These are Thea's. The app uses them verbatim or in close echoes, and they become
 
 - **An "about your doshas" view after the quiz result.** Right now we go from result straight to recommendations. The moment after the result is when the user is most curious — that's where the colors metaphor and the body-anatomy grounding belong, before any food lists appear.
 - **Asana / movement.** Thea is an RYT, not just an ayurvedic practitioner. Movement tuned to dosha and season is in the name of the app. The data scaffold and recommendations screen section now exist (`data/content/movement.js`) — content awaits Thea's posture descriptions and benefit copy.
-- **A morning hunger question on the daily check-in.** One question, surfaced gently. Trends in this single signal are diagnostically meaningful over time.
+- **A morning hunger question on the daily check-in.** One question, surfaced gently. Trends in this single signal are diagnostically meaningful over time. Pair it with a tongue-coating question — the two together give the app a read on agni and ama that no other single screen can.
 - **Evening / sleep guidance.** The janitor metaphor and the 10pm–2am window imply a whole evening side of the app that doesn't exist yet. Mark 1 is currently a daytime app.
 
 Notes for after the voice guide is signed off — not things to act on this week.
@@ -265,7 +315,7 @@ Some of Thea's guidance is genuinely countercultural — small dinners, no const
 - The feeling of the app — if Lavender Glow were a person, who would she be? (Educated guess: a version of Thea herself. Worth confirming.)
 - Movement: are there 3–5 signature sequences or postures she'd want the app to suggest per dosha? Even written descriptions, no video needed for mark 1.
 - Sleep and evening rituals — what does a Thea-approved wind-down look like?
-- **What's "the other part"?** At the end of the dosha-teaching voice memo, she said "it's hard to explain doshas without the other part" and trailed off. Almost certainly agni/digestion or the gunas. Worth asking which, and getting her to teach that piece next — it sounds like a foundation we're missing.
+- ~~**What's "the other part"?**~~ Answered: ama and agni. The new voice memo covers this. See the *Ama and agni* section above. The gunas may still be a third piece worth asking about.
 - A small clarification: in the dosha transcript she said "Prakriti" in a place where she clearly meant "vikriti." Either a transcription artifact or a slip in the moment. Worth confirming her preferred spelling/pronunciation of both terms.
 
 ---

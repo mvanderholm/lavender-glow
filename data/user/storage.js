@@ -95,8 +95,11 @@ export async function buildSessionSummary() {
       });
       lines.push('');
       lines.push(label);
-      const { physical, mental, emotional } = c.values;
-      lines.push(`  Physical ${physical}/5  ·  Mental ${mental}/5  ·  Emotional ${emotional}/5`);
+      const { physical, mental, emotional, hunger, tongue } = c.values;
+      let scoreLine = `  Physical ${physical}/5  ·  Mental ${mental}/5  ·  Emotional ${emotional}/5`;
+      if (hunger != null) scoreLine += `  ·  Hunger ${hunger}/5`;
+      if (tongue != null) scoreLine += `  ·  Tongue ${tongue}/5`;
+      lines.push(scoreLine);
       if (c.note?.trim()) lines.push(`  Note: "${c.note.trim()}"`);
     }
   } else {

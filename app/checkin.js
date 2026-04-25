@@ -9,13 +9,15 @@ const dimensions = [
   { key: 'physical', label: 'Physical', desc: 'Energy, digestion, body' },
   { key: 'mental', label: 'Mental', desc: 'Focus, clarity, sharpness' },
   { key: 'emotional', label: 'Emotional', desc: 'Mood, calm, openness' },
+  { key: 'hunger', label: 'Morning hunger', desc: 'How strong is your appetite right now?', hint: { low: 'none at all', high: 'genuinely hungry' } },
+  { key: 'tongue', label: 'Tongue coating', desc: 'Check before eating or drinking anything.', hint: { low: 'clear', high: 'heavy coating' } },
 ];
 
 const scale = [1, 2, 3, 4, 5];
 
 export default function CheckIn() {
   const { theme: { colors, spacing, radius, type } } = useTheme();
-  const [values, setValues] = useState({ physical: 3, mental: 3, emotional: 3 });
+  const [values, setValues] = useState({ physical: 3, mental: 3, emotional: 3, hunger: 3, tongue: 3 });
   const [note, setNote] = useState('');
   const styles = makeStyles(colors, spacing, radius);
 
@@ -41,6 +43,12 @@ export default function CheckIn() {
               </Pressable>
             ))}
           </View>
+          {d.hint && (
+            <View style={styles.hintRow}>
+              <Text style={styles.hintText}>{d.hint.low}</Text>
+              <Text style={styles.hintText}>{d.hint.high}</Text>
+            </View>
+          )}
         </View>
       ))}
 
@@ -75,6 +83,8 @@ return StyleSheet.create({
   container: { padding: spacing.lg },
   section: { marginTop: spacing.xl },
   scaleRow: { flexDirection: 'row', justifyContent: 'space-between', marginTop: spacing.md },
+  hintRow: { flexDirection: 'row', justifyContent: 'space-between', marginTop: spacing.xs },
+  hintText: { color: colors.textMuted, fontSize: 11, fontStyle: 'italic' },
   scaleDot: {
     width: 52, height: 52, borderRadius: radius.pill,
     backgroundColor: colors.surface, borderWidth: 1, borderColor: colors.border,
