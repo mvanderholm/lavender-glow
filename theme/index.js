@@ -84,8 +84,3 @@ export const themes = {
     ...shared,
   },
 };
-
-// Backwards-compatible static exports — midnight theme.
-// Existing screens importing { colors, type, spacing, radius } from '../theme' keep working unchanged.
-// New theme-aware code should use useTheme() from context/ThemeContext instead.
-export const { colors, type, spacing, radius } = themes.midnight;
