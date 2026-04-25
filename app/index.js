@@ -185,7 +185,7 @@ return StyleSheet.create({
     backgroundColor: colors.surface,
     borderRadius: radius.lg,
     borderLeftWidth: 3,
-    borderLeftColor: colors.saffron,
+    borderLeftColor: colors.accentAlt,
   },
   returningBlock: {
     marginTop: spacing.xl,

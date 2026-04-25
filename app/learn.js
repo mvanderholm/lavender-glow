@@ -127,6 +127,8 @@ return StyleSheet.create({
     marginTop: spacing.sm,
     borderWidth: 1,
     borderColor: colors.border,
+    borderLeftWidth: 3,
+    borderLeftColor: colors.accentAlt,
   },
   rowPressed: { opacity: 0.6 },
   rowMain: { flex: 1 },

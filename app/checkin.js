@@ -85,7 +85,7 @@ export default function CheckIn() {
 function makeStyles(colors, spacing, radius) {
 return StyleSheet.create({
   container: { padding: spacing.lg },
-  section: { marginTop: spacing.xl },
+  section: { marginTop: spacing.xl, paddingLeft: spacing.md, borderLeftWidth: 3, borderLeftColor: colors.accentAlt },
   scaleRow: { flexDirection: 'row', justifyContent: 'space-between', marginTop: spacing.md },
   hintRow: { flexDirection: 'row', justifyContent: 'space-between', marginTop: spacing.xs },
   hintText: { color: colors.textMuted, fontSize: 11, fontStyle: 'italic' },
