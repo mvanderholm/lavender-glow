@@ -1,6 +1,7 @@
-import { View, Text, StyleSheet, Pressable, ScrollView, Dimensions, Share, Platform, Linking } from 'react-native';
+import { View, Text, StyleSheet, Pressable, ScrollView, Share, Platform, Linking } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { useState, useEffect } from 'react';
+import { useWindowDimensions } from 'react-native';
 import { Link, useRouter } from 'expo-router';
 import { useTheme } from '../context/ThemeContext';
 import { currentSeason } from '../data/content/recommendations';
@@ -9,12 +10,12 @@ import { loadDoshaResult, buildSessionSummary } from '../data/user/storage';
 import LogoFull from '../components/LogoFull';
 import LogoAlt from '../components/LogoAlt';
 
-const SCREEN_WIDTH = Dimensions.get('window').width;
-
 export default function Home() {
   const { theme: { colors, spacing, radius, type }, brandStyle } = useTheme();
+  const { width: windowWidth } = useWindowDimensions();
+  const contentWidth = Platform.OS === 'web' ? Math.min(windowWidth, 480) : windowWidth;
+  const logoWidth = contentWidth - spacing.lg * 2;
   const season = currentSeason();
-  const logoWidth = SCREEN_WIDTH - spacing.lg * 2;
   const router = useRouter();
   const styles = makeStyles(colors, spacing, radius);
 
