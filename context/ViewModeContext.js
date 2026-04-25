@@ -17,7 +17,7 @@ export function ViewModeProvider({ children }) {
     if (Platform.OS !== 'web') return;
     AsyncStorage.getItem(VIEW_MODE_KEY).then(saved => {
       if (saved === 'web' || saved === 'app') setViewModeState(saved);
-    });
+    }).catch(err => console.error('ViewModeContext: AsyncStorage read failed:', err));
   }, []);
 
   function setViewMode(mode) {

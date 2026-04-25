@@ -28,7 +28,7 @@ export default function Home() {
   }, []);
 
   return (
-    <SafeAreaView style={styles.safeArea}>
+    <SafeAreaView edges={['bottom']} style={styles.safeArea}>
       <ScrollView contentContainerStyle={styles.container}>
         {brandStyle === 'lettermark' ? (
           <LogoAlt width={logoWidth} />

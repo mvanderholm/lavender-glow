@@ -26,7 +26,7 @@ export function ThemeProvider({ children }) {
       if (pairs[0][1]) AsyncStorage.removeItem(THEME_KEY);
       const savedBrand = pairs[1][1];
       if (savedBrand === 'wordmark' || savedBrand === 'lettermark') setBrandStyleState(savedBrand);
-    });
+    }).catch(err => console.error('ThemeContext: AsyncStorage read failed:', err));
   }, []);
 
   function setThemeName(name) {

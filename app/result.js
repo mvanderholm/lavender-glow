@@ -21,7 +21,9 @@ export default function Result() {
   const info = doshaInfo[primary];
 
   useEffect(() => {
-    saveDoshaResult(primary, scores);
+    saveDoshaResult(primary, scores).catch(err =>
+      console.error('Failed to save dosha result:', err)
+    );
   }, []);
 
   return (

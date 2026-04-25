@@ -67,7 +67,11 @@ export default function CheckIn() {
       <Pressable
         style={styles.primaryBtn}
         onPress={async () => {
-          await saveCheckin(values, note);
+          try {
+            await saveCheckin(values, note);
+          } catch (err) {
+            console.error('Failed to save check-in:', err);
+          }
           router.push('/recommendations');
         }}
       >
