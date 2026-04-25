@@ -17,11 +17,14 @@ export function ThemeProvider({ children }) {
   const [themeName, setThemeNameState] = useState('lavender');
   const [brandStyle, setBrandStyleState] = useState('wordmark');
 
+  // Theme toggle is currently disabled (see about.js). Reading a stale non-lavender
+  // value from AsyncStorage conflicts with the lavender bg hardcoded in +html.js,
+  // producing a split appearance on web. Re-enable this read when the toggle comes back.
   useEffect(() => {
     AsyncStorage.multiGet([THEME_KEY, BRAND_KEY]).then(pairs => {
-      const savedTheme = pairs[0][1];
+      // Clear any stale theme so it doesn't conflict if the read is re-enabled later.
+      if (pairs[0][1]) AsyncStorage.removeItem(THEME_KEY);
       const savedBrand = pairs[1][1];
-      if (savedTheme && themes[savedTheme]) setThemeNameState(savedTheme);
       if (savedBrand === 'wordmark' || savedBrand === 'lettermark') setBrandStyleState(savedBrand);
     });
   }, []);
