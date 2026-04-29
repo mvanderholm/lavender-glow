@@ -134,6 +134,29 @@ Hold until real users have at least a week of data. A simple trend of morning hu
 
 ---
 
+## App architecture — Thea's stated framework
+
+*From voice memo, April 2026. Thea's explicit description of how she sees the app's content organized. Not a current build target — a north star for how the recommendation engine scales.*
+
+**The 4×4 framework:**
+
+Four pillars: **Physical · Emotional · Mental · Spiritual**
+Each pillar has four sub-domains: **Diet · Herbs · Exercise · Lifestyle**
+
+16 cells total. Her words: *"That is really the basic of the app."*
+
+Examples she gave:
+- Physical / Diet: food combining, time of day, doshas
+- Emotional / Diet: your relationship to the food while eating it — do you love it, are you present?
+- Physical / Herbs: supplementing what food alone can't provide
+- Physical / Exercise: rest and postures vs. sweat and movement
+- Physical / Lifestyle: sleep before 10, phone down before bed, wake before 6
+
+**What this means for architecture:**
+Mark 1 recommendations are organized primarily by dosha and season. That structure fits inside this framework but doesn't fill it. When content is rich enough, the recommendation engine should route by pillar + sub-domain as well as dosha. No action now — flag it when designing any new recommendation schema or when scoping mark 2.
+
+---
+
 ## Longer horizon — for when the center gets closer
 
 - Practitioner-side tools: Thea views a client's check-in history before a session.

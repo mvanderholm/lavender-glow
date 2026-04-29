@@ -7,6 +7,7 @@ import { doshaInfo } from '../data/content/quiz';
 import { herbs, tasteColors } from '../data/content/herbs';
 import { asanas } from '../data/content/movement';
 import { useTheme } from '../context/ThemeContext';
+import { routineAnchors, routines } from '../data/content/routines';
 import { loadDoshaResult } from '../data/user/storage';
 
 export default function Recommendations() {
@@ -120,6 +121,15 @@ export default function Recommendations() {
 
         <Section title="Lifestyle Note" accent={colors.kapha}>
           <Text style={type.body}>{rec.lifestyle}</Text>
+        </Section>
+
+        <Section title="Daily Rhythms" accent={colors.accentAlt}>
+          {routines[dosha].map(r => (
+            <RoutineRow key={r.id} time={r.time} label={r.label} />
+          ))}
+          {routineAnchors.map(a => (
+            <RoutineRow key={a.id} time={a.time} label={a.label} />
+          ))}
         </Section>
       </ScrollView>
 
@@ -263,6 +273,20 @@ function AsanaModal({ asana, onClose }) {
   );
 }
 
+function RoutineRow({ time, label }) {
+  const { theme: { colors, spacing, radius, type } } = useTheme();
+  const styles = makeStyles(colors, spacing, radius);
+  const isMorning = time === 'morning';
+  return (
+    <View style={styles.routineRow}>
+      <View style={[styles.routineTimeBadge, isMorning ? styles.routineTimeMorning : styles.routineTimeEvening]}>
+        <Text style={styles.routineTimeText}>{time}</Text>
+      </View>
+      <Text style={[type.body, { flex: 1 }]}>{label}</Text>
+    </View>
+  );
+}
+
 function Section({ title, accent, children }) {
   const { theme: { colors, spacing, radius, type } } = useTheme();
   const styles = makeStyles(colors, spacing, radius);
@@ -391,5 +415,27 @@ return StyleSheet.create({
     borderColor: colors.border,
   },
   closeBtnText: { color: colors.text, fontWeight: '600', fontSize: 16 },
+  routineRow: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    gap: spacing.sm,
+    marginTop: spacing.sm,
+  },
+  routineTimeBadge: {
+    paddingHorizontal: spacing.sm,
+    paddingVertical: 2,
+    borderRadius: radius.pill,
+    minWidth: 68,
+    alignItems: 'center',
+  },
+  routineTimeMorning: { backgroundColor: colors.saffron + '33' },
+  routineTimeEvening: { backgroundColor: colors.vata + '33' },
+  routineTimeText: {
+    color: colors.textMuted,
+    fontSize: 11,
+    fontWeight: '700',
+    textTransform: 'uppercase',
+    letterSpacing: 0.5,
+  },
 });
 }

@@ -1,4 +1,4 @@
-import { View, Text, StyleSheet, Pressable, ScrollView, Share, Platform, Linking } from 'react-native';
+import { View, Text, StyleSheet, Pressable, ScrollView, Share, Platform, Linking, TextInput } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { useState, useEffect } from 'react';
 import { useWindowDimensions } from 'react-native';
@@ -6,7 +6,9 @@ import { Link, useRouter } from 'expo-router';
 import { useTheme } from '../context/ThemeContext';
 import { currentSeason } from '../data/content/recommendations';
 import { doshaInfo } from '../data/content/quiz';
-import { loadDoshaResult, buildSessionSummary } from '../data/user/storage';
+import { loadDoshaResult, buildSessionSummary, loadTodayIntention, saveIntention } from '../data/user/storage';
+import { intentionSuggestions } from '../data/content/intentions';
+import { currentMythbuster } from '../data/content/mythbusters';
 import LogoFull from '../components/LogoFull';
 import LogoAlt from '../components/LogoAlt';
 
@@ -64,6 +66,8 @@ export default function Home() {
           <Text style={[type.muted, { marginTop: spacing.xs }]}>{season.focus}</Text>
         </View>
 
+        <MythbusterCard />
+
         {savedDosha === null ? (
           // Loading — render nothing where the CTAs will be to avoid flicker
           <View style={{ height: 160 }} />
@@ -118,6 +122,8 @@ function ReturningUser({ dosha }) {
         {info.name}
       </Text>
 
+      <IntentionCard dosha={dosha} />
+
       <Link href={{ pathname: '/recommendations', params: { dosha } }} asChild>
         <Pressable style={styles.primaryBtn}>
           <Text style={styles.primaryBtnText}>Today's Guidance</Text>
@@ -171,6 +177,89 @@ function NewUser() {
       </Link>
 
       <DownloadCTAs />
+    </View>
+  );
+}
+
+function MythbusterCard() {
+  const { theme: { colors, spacing, radius, type } } = useTheme();
+  const styles = makeStyles(colors, spacing, radius);
+  const myth = currentMythbuster();
+  if (!myth) return null;
+
+  return (
+    <View style={styles.mythbusterCard}>
+      <Text style={type.label}>This Week</Text>
+      <Text style={[type.h2, { marginTop: spacing.xs }]}>Mythbusters</Text>
+      <Text style={[type.body, { marginTop: spacing.sm, fontStyle: 'italic' }]}>
+        "{myth.myth}"
+      </Text>
+      {myth.take && (
+        <Text style={[type.body, { marginTop: spacing.md, lineHeight: 24 }]}>{myth.take}</Text>
+      )}
+      {myth.reframe && (
+        <Text style={[type.muted, { marginTop: spacing.sm, lineHeight: 22 }]}>{myth.reframe}</Text>
+      )}
+    </View>
+  );
+}
+
+function IntentionCard({ dosha }) {
+  const { theme: { colors, spacing, radius, type } } = useTheme();
+  const styles = makeStyles(colors, spacing, radius);
+  const suggestions = intentionSuggestions(dosha);
+  const [intention, setIntention] = useState(null);
+  const [draft, setDraft] = useState('');
+
+  useEffect(() => {
+    loadTodayIntention().then(val => setIntention(val ?? ''));
+  }, []);
+
+  async function choose(text) {
+    const trimmed = text.trim();
+    if (!trimmed) return;
+    await saveIntention(trimmed);
+    setIntention(trimmed);
+    setDraft('');
+  }
+
+  if (intention === null) return null;
+
+  return (
+    <View style={styles.intentionCard}>
+      {intention ? (
+        <>
+          <Text style={type.label}>Just for today</Text>
+          <Text style={[type.body, { marginTop: spacing.sm }]}>I will {intention}</Text>
+          <Pressable onPress={() => setIntention('')} style={{ marginTop: spacing.sm, alignSelf: 'flex-start' }}>
+            <Text style={{ color: colors.textMuted, fontSize: 12 }}>change</Text>
+          </Pressable>
+        </>
+      ) : (
+        <>
+          <Text style={type.label}>Just for today, I will…</Text>
+          <View style={styles.intentionChipRow}>
+            {suggestions.map(s => (
+              <Pressable
+                key={s.id}
+                style={({ pressed }) => [styles.intentionChip, pressed && { opacity: 0.6 }]}
+                onPress={() => choose(s.text)}
+              >
+                <Text style={styles.intentionChipText}>{s.text}</Text>
+              </Pressable>
+            ))}
+          </View>
+          <TextInput
+            style={styles.intentionInput}
+            placeholder="write your own…"
+            placeholderTextColor={colors.textMuted}
+            value={draft}
+            onChangeText={setDraft}
+            onSubmitEditing={() => choose(draft)}
+            returnKeyType="done"
+          />
+        </>
+      )}
     </View>
   );
 }
@@ -244,5 +333,50 @@ return StyleSheet.create({
     borderColor: colors.border,
   },
   downloadBtnText: { color: colors.text, fontWeight: '600', fontSize: 15 },
+  mythbusterCard: {
+    marginTop: spacing.lg,
+    padding: spacing.lg,
+    backgroundColor: colors.surface,
+    borderRadius: radius.lg,
+    borderLeftWidth: 3,
+    borderLeftColor: colors.saffron,
+  },
+  intentionCard: {
+    marginTop: spacing.lg,
+    padding: spacing.lg,
+    backgroundColor: colors.surface,
+    borderRadius: radius.lg,
+    borderLeftWidth: 3,
+    borderLeftColor: colors.accent,
+  },
+  intentionChipRow: {
+    flexDirection: 'row',
+    flexWrap: 'wrap',
+    gap: spacing.sm,
+    marginTop: spacing.md,
+  },
+  intentionChip: {
+    backgroundColor: colors.surfaceAlt,
+    paddingHorizontal: spacing.md,
+    paddingVertical: spacing.sm,
+    borderRadius: radius.pill,
+    borderWidth: 1,
+    borderColor: colors.accent + '66',
+  },
+  intentionChipText: {
+    color: colors.accent,
+    fontSize: 14,
+  },
+  intentionInput: {
+    marginTop: spacing.md,
+    paddingHorizontal: spacing.md,
+    paddingVertical: spacing.sm,
+    backgroundColor: colors.surfaceAlt,
+    borderRadius: radius.md,
+    borderWidth: 1,
+    borderColor: colors.border,
+    color: colors.text,
+    fontSize: 14,
+  },
 });
 }

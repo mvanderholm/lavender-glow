@@ -4,6 +4,7 @@ const KEYS = {
   PRIMARY_DOSHA: '@lavender-glow/primary_dosha',
   DOSHA_SCORES: '@lavender-glow/dosha_scores',
   CHECKIN_PREFIX: '@lavender-glow/checkins/',
+  INTENTION_PREFIX: '@lavender-glow/intentions/',
 };
 
 // --- Dosha result ---
@@ -56,6 +57,18 @@ export async function loadRecentCheckins(days = 7) {
       date: k.replace(KEYS.CHECKIN_PREFIX, ''),
       ...JSON.parse(v),
     }));
+}
+
+// --- Daily intention ---
+
+export async function saveIntention(text) {
+  const key = KEYS.INTENTION_PREFIX + new Date().toISOString().slice(0, 10);
+  await AsyncStorage.setItem(key, text);
+}
+
+export async function loadTodayIntention() {
+  const key = KEYS.INTENTION_PREFIX + new Date().toISOString().slice(0, 10);
+  return AsyncStorage.getItem(key);
 }
 
 // --- Session summary (plain text for sharing) ---

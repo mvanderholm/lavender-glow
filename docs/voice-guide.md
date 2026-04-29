@@ -12,6 +12,28 @@ When in doubt about a content decision: would Thea say this? Would she say it th
 
 ---
 
+## Who Thea is
+
+Thea came to yoga in 2017 — not as a seeker, but as an athlete with completely destroyed hips after a Sunday run. A friend dragged her in. Her response at the door: "I don't do yoga. It's too slow. It's not my thing." She went anyway. Her words: her life was "essentially transformed."
+
+Two years later, yoga teacher training. Ayurveda was introduced there — a day session, maybe a weekend. She knew immediately there was something to it. Her description of that first encounter: *"The first time I really started to understand my body in a way of balance as opposed to extreme."*
+
+That phrase — **balance as opposed to extreme** — is the hinge between her athletic past and her practice. It is also the hinge underneath every recommendation the app makes.
+
+---
+
+## Yoga and Ayurveda — why both are in the app
+
+Thea is an RYT and an Ayurvedic practitioner, not one or the other, and the two are inseparable for her. The app reflects that — the asana module isn't a bolt-on feature, it's the other half of what the app is supposed to be.
+
+Her framing: yoga and Ayurveda are sister sciences. Both are rooted in Vedic tradition. Both were always used together — not one before the other. Ayurveda as she teaches it: the science of healing, body and mind together. Yoga: self-reflection and realization. The best path inward depends on a well-oiled, well-functioning body and mind — which is exactly why healing and practice can't be siloed.
+
+What she notices about Western wellness: it tends to categorize and bucket. A yoga app. A nutrition app. A meditation app. Lavender Glow is explicitly neither — it's the integration, because that's what the tradition always was.
+
+**Tone note:** This framing belongs in the "about" context — the About Thea screen, any onboarding copy that explains what the app is. Not in daily check-in or recommendation copy, where it's assumed, not explained.
+
+---
+
 ## The five core principles
 
 **1. Nothing is for everybody. Everything is for somebody.**
