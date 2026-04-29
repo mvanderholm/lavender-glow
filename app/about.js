@@ -37,16 +37,16 @@ export default function About() {
         </Text>
 
         {/* Bio */}
-        {/* [DRAFT — awaiting Thea's copy] */}
+        {/* [DRAFT — distilled from Thea's voice memo. Her review required before shipping.] */}
         <View style={styles.bioBlock}>
           <Text style={[type.body, styles.bioPara]}>
-            [DRAFT] Thea has been practicing and teaching ayurveda for over a decade. Her work draws on the classical tradition — doshas, seasonal rhythms, the relationship between digestion and mind — applied to how people actually live.
+            She came to yoga in 2017 the way most people do — sideways, via necessity. A Sunday run destroyed her hips, a friend said just come to class, and she walked in absolutely certain it wasn't her thing. She was wrong. It was the first time she'd understood her body through balance rather than force, and she hasn't looked back.
           </Text>
           <Text style={[type.body, styles.bioPara]}>
-            [DRAFT] She is a Certified Wellness Coach with a specialization in Ayurvedic Medicine from the Shakti School (2025), and a Registered Yoga Teacher (RYT) trained at Lotus House of Yoga (2019).
+            She completed her yoga teacher training at Lotus House of Yoga in 2019, which is where Ayurveda found her. One session was enough to know there was something there. She's been studying and practicing ever since, earning her certification in Ayurvedic Medicine through the Shakti School in 2025.
           </Text>
           <Text style={[type.body, styles.bioPara]}>
-            [DRAFT] Lavender Glow is her practice in app form — a way to bring the core tools of ayurveda into daily life between (or in lieu of) sessions.
+            Lavender Glow is her practice in app form — a way to bring the core tools of Ayurveda into the daily lives of people between sessions, or in lieu of them. Her worldview, her methodology, her voice. The eventual physical center is coming. For now, this.
           </Text>
         </View>
 
