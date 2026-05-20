@@ -77,6 +77,10 @@ export const doshaInfo = {
       'Your constitution is naturally light, dry, and mobile. Think of yourself like a little bunny: quick, creative, and always in motion. Your best balance comes from warmth, grounding, gentle steadiness, and rest.',
     movementFocus:
       'Slow, steady, warming movement is your best medicine. Favor long holds, forward folds, twists, restorative practice, and breathing down into the lower belly.',
+    elementGrounding: [
+      { element: 'Air', body: 'Your breath. Every inhale and exhale is vata moving through the body — circulation, nerve impulses, the flow of thought. When vata is high, the breath gets shallow and quick.' },
+      { element: 'Ether', body: 'Space. The hollow inside your nostril. The cavities and channels throughout the body that allow everything else to move. Without space, nothing flows.' },
+    ],
   },
   pitta: {
     name: 'Pitta',
@@ -89,6 +93,10 @@ export const doshaInfo = {
       'Your constitution is naturally warm, sharp, and intense. You are driven and transformation-focused, and your best balance comes from cooling ease, relaxed repetition, and gentle flexibility rather than perfection.',
     movementFocus:
       'Cool, calm, steady movement works best for you. Favor flexibility, restorative pacing, forward folds, twists, and practices that feel fun rather than competitive.',
+    elementGrounding: [
+      { element: 'Fire', body: 'The heat of digestion in your stomach. The redness you can see in blood vessels. Metabolism at every level — cellular, digestive, mental. Pitta transforms whatever it touches.' },
+      { element: 'Water', body: 'The medium that carries the fire safely. Your blood, your bile, the oily secretions that keep pitta from burning through what it\'s supposed to be digesting.' },
+    ],
   },
   kapha: {
     name: 'Kapha',
@@ -101,5 +109,9 @@ export const doshaInfo = {
       'Your constitution is naturally cool, heavy, and steady. You are strong, resilient, and grounded; your best balance comes from warming, lighter movement, quickening energy, and a little extra lift.',
     movementFocus:
       'Energizing, mildly warming movement is your best medicine. Favor backbends, twists, sun salutations, and quick, dynamic sequences that wake the body up.',
+    elementGrounding: [
+      { element: 'Water', body: 'Blood and lymph — the fluid that carries nourishment to every tissue. Also the plasma, the mucus lining, the substance that holds everything together and keeps it hydrated.' },
+      { element: 'Earth', body: 'Bone. Muscle. The physical structure of the body itself. Kapha gives you your solidity, your endurance, and your capacity to hold what matters.' },
+    ],
   },
 };
