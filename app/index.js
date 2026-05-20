@@ -316,7 +316,7 @@ return StyleSheet.create({
   },
   primaryBtn: {
     marginTop: spacing.lg,
-    backgroundColor: colors.saffron,
+    backgroundColor: colors.accent,
     paddingVertical: spacing.md,
     borderRadius: radius.pill,
     alignItems: 'center',

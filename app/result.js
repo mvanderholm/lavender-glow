@@ -162,7 +162,7 @@ function makeStyles(colors, spacing, radius) {
     },
     primaryBtn: {
       marginTop: spacing.xl,
-      backgroundColor: colors.saffron,
+      backgroundColor: colors.accent,
       paddingVertical: spacing.md,
       borderRadius: radius.pill,
       alignItems: 'center',
