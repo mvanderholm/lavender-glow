@@ -90,6 +90,41 @@ Concept list (prioritized):
 
 Do not fabricate entries to fill gaps faster. Empty is correct until Thea has authored each one.
 
+**7b. Learn concept matrix — 4×4 content expansion.**
+
+Each Learn concept gets a structured 4×4 matrix mapping how that concept applies across all four dimensions of life. This deepens every entry from a single body of text into a full reference.
+
+Columns (dimensions): **Physical · Mental · Emotional · Spiritual**
+Rows (domains): **Lifestyle · Diet · Exercises · Herbs**
+
+So each concept has 16 cells. Example for Agni:
+- Physical / Lifestyle: morning routine practices that stoke digestive fire
+- Physical / Diet: foods and eating habits that support agni
+- Physical / Exercises: movement that strengthens digestive capacity
+- Physical / Herbs: herbs that kindle agni
+- Mental / Lifestyle: practices that maintain mental clarity (mental agni)
+- Mental / Diet: how and when you consume information
+- … and so on across all 16 cells
+
+**Data structure change required** — `data/content/learn.js` entries will need a `matrix` field:
+```js
+matrix: {
+  physical:   { lifestyle: '...', diet: '...', exercises: '...', herbs: '...' },
+  mental:     { lifestyle: '...', diet: '...', exercises: '...', herbs: '...' },
+  emotional:  { lifestyle: '...', diet: '...', exercises: '...', herbs: '...' },
+  spiritual:  { lifestyle: '...', diet: '...', exercises: '...', herbs: '...' },
+}
+```
+
+**Build order:**
+1. Design the data structure and UI (scaffold can be built without content)
+2. Thea authors cells one concept at a time via voice memo pipeline
+3. Ship cells as they're approved — partial matrices are fine, null cells show "coming soon"
+
+**Content dependency:** All 16 cells per concept must come from Thea. Do not infer or fill from general ayurvedic sources. Start with Agni and Ama (already approved) once she's ready to record the matrix content.
+
+**Connection to the 4×4 framework** already in the roadmap (see "App architecture — Thea's stated framework"): this is the same four pillars and four sub-domains applied to the Learn section specifically. When the recommendation engine eventually routes by pillar + sub-domain, the Learn matrix entries will be the reference content that backs those recommendations.
+
 ---
 
 ## From Thea's voice memos — features to build
