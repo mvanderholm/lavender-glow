@@ -1,12 +1,11 @@
-import { View, Text, StyleSheet, Pressable, ScrollView } from 'react-native';
+import { View, Text, StyleSheet, Pressable, ScrollView, Platform, useWindowDimensions } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { useState, useEffect } from 'react';
 import { useRouter } from 'expo-router';
 import { useTheme } from '../context/ThemeContext';
 import { doshaInfo } from '../data/content/quiz';
 import { loadDoshaResult } from '../data/user/storage';
-import { BotanicalDivider } from '../components/BotanicalAccent';
-import { useWindowDimensions, Platform } from 'react-native';
+import { DoshaWheel } from '../components/DoshaWheel';
 
 export default function You() {
   const { theme: { colors: c, spacing, radius, type } } = useTheme();
@@ -14,32 +13,32 @@ export default function You() {
   const innerWidth = (Platform.OS === 'web' ? Math.min(windowWidth, 480) : windowWidth) - spacing.lg * 2;
   const router = useRouter();
   const styles = makeStyles(c, spacing, radius);
-  const [savedDosha, setSavedDosha] = useState(null);
+
+  // null = loading, false = no quiz taken, { dosha, scores } = has result
+  const [result, setResult] = useState(null);
 
   useEffect(() => {
-    loadDoshaResult().then(result => {
-      setSavedDosha(result ? result.dosha : false);
-    });
+    loadDoshaResult().then(r => setResult(r || false));
   }, []);
 
-  const info = savedDosha ? doshaInfo[savedDosha] : null;
+  const info = result && result.dosha ? doshaInfo[result.dosha] : null;
+  const wheelSize = Math.min(Math.round(innerWidth * 0.75), 220);
 
   return (
     <SafeAreaView edges={['top']} style={{ flex: 1, backgroundColor: c.bg }}>
       <ScrollView contentContainerStyle={styles.container}>
         <Text style={type.label}>Your Practice</Text>
 
-        {savedDosha === null ? (
+        {result === null ? (
           <View style={{ height: 60 }} />
-        ) : savedDosha ? (
+        ) : result ? (
           <>
             <Text style={[type.h1, { marginTop: spacing.sm }]}>Welcome back.</Text>
-            <View style={[styles.doshaChip, { borderColor: info.color }]}>
-              <Text style={[type.label, { color: info.color }]}>{info.name}</Text>
-            </View>
-            <Text style={[type.muted, { marginTop: spacing.sm }]}>
-              {info.tagline}
-            </Text>
+            {result.scores && (
+              <View style={{ marginTop: spacing.xl, alignItems: 'center' }}>
+                <DoshaWheel scores={result.scores} primary={result.dosha} size={wheelSize} />
+              </View>
+            )}
           </>
         ) : (
           <>
@@ -50,40 +49,43 @@ export default function You() {
           </>
         )}
 
-        <BotanicalDivider color={c.sage} borderColor={c.border} width={innerWidth} />
+        <View style={{ marginTop: spacing.xl }}>
+          <NavCard
+            label="Know yourself"
+            title="Dosha Quiz"
+            description="Find your home-base constitution. Takes about five minutes."
+            accent={c.accentAlt}
+            onPress={() => router.push('/quiz')}
+            styles={styles}
+            type={type}
+            spacing={spacing}
+          />
+          <NavCard
+            label="Daily practice"
+            title="Check-in"
+            description="Five questions. Where you actually are today — not yesterday, not in general."
+            accent={c.saffron}
+            onPress={() => router.push('/checkin')}
+            styles={styles}
+            type={type}
+            spacing={spacing}
+          />
+          <NavCard
+            label="Today"
+            title="Guidance"
+            description="Food, herbs, and movement tuned to your dosha and the current season."
+            accent={c.sage}
+            onPress={() => router.push(result && result.dosha
+              ? { pathname: '/recommendations', params: { dosha: result.dosha } }
+              : '/recommendations'
+            )}
+            styles={styles}
+            type={type}
+            spacing={spacing}
+          />
+        </View>
 
-        <NavCard
-          label="Know yourself"
-          title="Dosha Quiz"
-          description="Find your home-base constitution. Takes about five minutes."
-          accent={c.accentAlt}
-          onPress={() => router.push('/quiz')}
-          styles={styles}
-          type={type}
-          spacing={spacing}
-        />
-        <NavCard
-          label="Daily practice"
-          title="Check-in"
-          description="Five questions. Where you actually are today — not yesterday, not in general."
-          accent={c.saffron}
-          onPress={() => router.push('/checkin')}
-          styles={styles}
-          type={type}
-          spacing={spacing}
-        />
-        <NavCard
-          label="Today"
-          title="Guidance"
-          description="Food, herbs, and movement tuned to your dosha and the current season."
-          accent={c.sage}
-          onPress={() => router.push(savedDosha ? { pathname: '/recommendations', params: { dosha: savedDosha } } : '/recommendations')}
-          styles={styles}
-          type={type}
-          spacing={spacing}
-        />
-
-        {savedDosha && (
+        {result && result.dosha && (
           <Pressable style={styles.ghostBtn} onPress={() => router.push('/quiz')}>
             <Text style={[type.muted, { fontSize: 13 }]}>Retake the quiz</Text>
           </Pressable>
@@ -112,14 +114,6 @@ function makeStyles(c, spacing, radius) {
     container: {
       padding: spacing.lg,
       paddingBottom: spacing.xl,
-    },
-    doshaChip: {
-      alignSelf: 'flex-start',
-      marginTop: spacing.md,
-      paddingHorizontal: spacing.md,
-      paddingVertical: spacing.xs,
-      borderRadius: radius.pill,
-      borderWidth: 1.5,
     },
     card: {
       marginTop: spacing.lg,

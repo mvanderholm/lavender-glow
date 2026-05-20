@@ -46,12 +46,22 @@ Same constraint — wait for voice guide approval.
 **3. Add the morning hunger question to the daily check-in.**
 One new question: "How's your morning hunger today?" Five levels from "no appetite" to "ravenous." Persisted alongside check-in values. Gentle framing — information about digestive fire, not a judgment.
 
+**19. Revisit daily check-in questions.**
+Full review of the current check-in question set with Thea. Questions should reflect her methodology and voice more precisely — current set is a scaffold. She should define what signals are diagnostically useful for tracking vikriti day-to-day.
+
+Content dependency: Thea to review and rewrite/reorder questions. Do not change question set without her input.
+
 ---
 
 ## Content work — requires Thea round 2 voice memo
 
 **4. Dosha explanations rewrite.**
 Replace placeholder dosha intro copy in `data/content/quiz.js` with Thea's own language. Waiting on her round 2 voice memo.
+
+**18. Revisit dosha quiz questions.**
+Full review of the quiz question set with Thea. Questions should map cleanly to her understanding of how the doshas present — current set is a reasonable scaffold but may not reflect her clinical framing. She should define what physical, mental, and behavioral signals she actually uses to identify someone's prakriti.
+
+Content dependency: Thea to review and rewrite/reorder questions. Do not change question set without her input — the quiz is the app's first clinical impression.
 
 **5. Asana module — Thea's content.**
 Posture descriptions, timing, and benefit copy for each dosha's 3–5 postures in `data/content/movement.js`. Scaffold is built and wired — plug in her content when ready.
@@ -153,6 +163,22 @@ Design constraints: friend-texting-a-song tone, not clinical. Thea owns curation
 
 ⚠️ **Open question before building:** How does Thea want to organize her playlists? By dosha, season, energetic state, or combination? Five-minute conversation that prevents a data-structure refactor later — ask before scaffolding.
 
+**20. Daily Affirmations screen.**
+A dedicated affirmations screen under the "You" tab. One affirmation per day, personalized to the user's **vikriti** (current state as tracked by the daily check-in) — not their prakriti. The affirmation should meet them where they are today, not where they started.
+
+Distinct from the "Just for today" intention prompt (item #8) — affirmations are declarative ("I am rooted, but I flow") where intentions are active ("Just for today, I will ___"). Both can coexist.
+
+Design constraints:
+- Single screen, clean and unhurried. No list of affirmations — one at a time.
+- Resets daily. No history, no streak.
+- Optional: tap to get a different one from the day's pool.
+
+**Data structure requirement:** Affirmations must be tagged by dosha (vata / pitta / kapha) and optionally by season or energetic state, so the app can select the right one based on today's vikriti reading. A single affirmation object will need at minimum: `text`, `dosha`, and optionally `season` and `state` (e.g. "depleted", "overheated", "heavy").
+
+**Content dependency:** Matt will source the affirmation bank. Content must be categorized to the schema above before it can be wired in. Scaffold (UI + data structure) can be built first.
+
+**Build dependency:** Vikriti signal from check-in (#19) should be reasonably reliable before affirmations are personalized — otherwise they're just randomized by prakriti, which is less useful. Can ship a prakriti-based version first as a stepping stone.
+
 **11. Monday Mythbusters.**
 Weekly content slot (proposed: Mondays) where Thea busts one received wellness belief. 1–2 paragraphs, her voice, on the home or recommendations screen.
 
@@ -162,19 +188,68 @@ Data shape: title (the myth, plainly stated), Thea's take, practical reframe, pu
 
 ---
 
+---
+
+## Logo & brand
+
+**25. Replace logo mark with the O from the style guide.**
+Thea prefers the standalone "O" glyph from the L. GLOW style guide image over the current logo mark (which has a chevron above the O). 
+
+Work required:
+1. Extract or recreate the O glyph from `docs/IMG_20260518_165434.png` — either trace it as an SVG or get the original vector file if one exists.
+2. Replace the current `components/LogoMark.js` (or the relevant SVG path) with the new mark.
+3. Check everywhere the logo renders: header, welcome screen, about screen, web layout sidebar. Confirm it looks right at all sizes.
+
+⚠️ **Before building:** Confirm with Thea / Matt whether the original vector asset is available anywhere (Figma file, brand kit, designer contact). Tracing from a compressed PNG is a fallback, not the first move.
+
+---
+
+## Visual & design work
+
+**21. Imagery pass — herbs, food, botanicals, candlelight.**
+Incorporate more of the brand's visual language throughout the app. Priority subjects from the style guide:
+
+- Herbs: loose dried herbs, bundles of rosemary, sage, lavender
+- Tea: steam-rising cups, clay/ceramic vessels
+- Ayurvedic food dishes: warm, earthy, texturally rich
+- Terracotta tones: clay pots, mortar and pestle, warm earth surfaces
+- Candles: soft candlelight, beeswax, ritual atmosphere
+
+Where to apply: hero banners on recommendations screen and learn screen; background texture on the You tab; seasonal imagery on the home screen. Photo art direction should feel grounded and domestic — a real kitchen, a real windowsill — not a styled spa shoot.
+
+Build order: identify current screens with placeholder or no imagery first, source or request photos, apply using the established View+Image pattern (not ImageBackground).
+
+---
+
 ## Navigation expansion — four new top-level sections
 
 **13. Journey**
 A personal progress view. Likely home to check-in history, dosha trends over time, and the user's evolving relationship with the practice. Content and shape TBD — requires a conversation with Thea about what "progress" looks like in ayurveda (it's not a linear score). Do not build until that framing is clear.
 
 **14. Tools**
-A curated toolkit of standalone ayurvedic practices — things the user can reach for on demand rather than as part of a daily flow. Candidates from the voice guide: self-massage (abhyanga), breathwork, meditation prompts, music/vibration. Shape: a grid or list of tool cards, each opening a focused practice view. Content dependency: Thea to define which tools belong here and in what form.
+A curated toolkit of standalone ayurvedic practices — things the user can reach for on demand rather than as part of a daily flow. Scaffold is live with 2-column practice grid + education cards.
+
+Confirmed sections (May 2026):
+
+*Practices (2-column grid):*
+- **Recipes** — `app/recipes.js` — placeholder. Dosha-wise meals and kitchen preparations. Content dependency: Thea to author recipes one at a time, each tagged with dosha, season, and preparation notes.
+- **Herbs** — `app/herbs.js` — live with existing `data/content/herbs.js` data. Content flagged as draft, pending Thea's review of summaries and use instructions.
+- **Breathwork** — `app/breathwork.js` — placeholder. Pranayama matched to dosha and state. Content dependency: Thea to author techniques per dosha.
+- **Meditation** — `app/meditation.js` — placeholder. Dosha-specific stillness practices. Content dependency: Thea.
+- **Self Massage** — `app/selfmassage.js` — placeholder. Abhyanga protocols by dosha — oils, strokes, timing. Content dependency: Thea.
+- **Journal** — routes to existing `app/journal.js`. ⚠️ Currently also a top-level nav tab — consider removing the standalone Journal tab once Tools is the established home for it.
+
+*Education (full-width cards):*
+- Learn, About Thea — unchanged.
 
 **15. Journal**
 A free-form daily writing space, separate from the check-in note field. Could eventually connect to the check-in (surfacing yesterday's note before today's check-in) or the intention ("just for today" anchoring a longer reflection). Keep it simple — a dated text entry, stored locally. No prompts enforced; optional gentle framing from Thea's voice.
 
 **16. You**
 The personal profile section. Home for: dosha result and breakdown, quiz retake, saved intentions, and eventually session history and booking. Currently some of this lives on the home screen (returning user state) — this section gives it a permanent home and clears the home screen of account-management concerns.
+
+~~**22. Prakriti visualization in "You" tab.**~~
+`components/DoshaWheel.js` — SVG donut chart with three colored segments proportional to dosha scores. Primary dosha name + percentage centered in the donut. Three-column legend below (name + %). Wired into You tab. Component is reusable — can also replace the bar chart on the result screen when ready. Done.
 
 **Confirmed nav structure (May 2026):**
 
@@ -187,6 +262,9 @@ The personal profile section. Home for: dosha result and breakdown, quiz retake,
 | You | Dosha Quiz · Daily Check-in · Today's Guidance (Recommendations) |
 
 *Current routes (quiz, checkin, recommendations, learn, about) don't move or change — they just get new homes within this tab structure. Nav restructure touches `app/_layout.js` and `components/WebLayout.js`. Do the nav shell first, then build Journey and Journal as new screens.*
+
+**24. Remove standalone Journal tab from bottom nav.**
+Journal now lives under Tools. Once that feels established, drop the Journal tab from the bottom nav — reduces nav to 4 tabs (Home · Journey · Tools · You), which is cleaner. Change touches `components/BottomNav.js` and `components/WebLayout.js`. Low risk, one conversation to confirm before doing it.
 
 ---
 
@@ -222,6 +300,7 @@ Mark 1 recommendations are organized primarily by dosha and season. That structu
 
 ## Longer horizon — for when the center gets closer
 
+- **Vikriti visualization driven by daily check-in.** A second color swatch alongside the Prakriti one, showing the user's current dosha state (vikriti) as derived from their check-in responses over time. The visual gap between the two swatches makes the concept of prakriti vs. vikriti tangible — you can see how far you've drifted and which direction. Requires: (a) check-in questions revised to reliably signal dosha state (#19), (b) an algorithm to compute a running vikriti estimate from check-in data, (c) enough data from real users to validate the signal. Do not build the algorithm until the question set is locked.
 - Practitioner-side tools: Thea views a client's check-in history before a session.
 - "Book a session with Thea" CTA wired to scheduling software, or eventually in-app.
 - Account creation and cross-device sync (resist until real users ask for it).

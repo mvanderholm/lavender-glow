@@ -74,6 +74,11 @@ function AppNavigator() {
       <Stack.Screen name="recommendations" />
       <Stack.Screen name="about" />
       <Stack.Screen name="learn" />
+      <Stack.Screen name="herbs" />
+      <Stack.Screen name="recipes" />
+      <Stack.Screen name="breathwork" />
+      <Stack.Screen name="meditation" />
+      <Stack.Screen name="selfmassage" />
     </Stack>
   );
 
