@@ -10,6 +10,11 @@ export default function Learn() {
   const styles = makeStyles(colors, spacing, radius);
 
   const tiers = [1, 2, 3];
+  const tierAccents = {
+    1: colors.accentAlt,
+    2: colors.olive,
+    3: colors.honeyAmber,
+  };
 
   return (
     <SafeAreaView edges={['bottom']} style={{ flex: 1, backgroundColor: colors.bg }}>
@@ -28,7 +33,7 @@ export default function Learn() {
               {group.map(concept => (
                 <Pressable
                   key={concept.id}
-                  style={({ pressed }) => [styles.row, pressed && styles.rowPressed]}
+                  style={({ pressed }) => [styles.row, { borderLeftColor: tierAccents[tier] }, pressed && styles.rowPressed]}
                   onPress={() => setSelected(concept)}
                 >
                   <View style={styles.rowMain}>

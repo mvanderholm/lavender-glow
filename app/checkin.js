@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { View, Text, StyleSheet, Pressable, ScrollView, TextInput } from 'react-native';
+import { View, Text, StyleSheet, Pressable, ScrollView, TextInput, Image } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { router } from 'expo-router';
 import { useTheme } from '../context/ThemeContext';
@@ -24,9 +24,23 @@ export default function CheckIn() {
   return (
     <SafeAreaView edges={['bottom']} style={{ flex: 1, backgroundColor: colors.bg }}>
     <ScrollView contentContainerStyle={styles.container}>
-      <Text style={type.label}>Today, {new Date().toLocaleDateString(undefined, { weekday: 'long', month: 'short', day: 'numeric' })}</Text>
-      <Text style={[type.h1, { marginTop: spacing.sm }]}>How are you, really?</Text>
-      <Text style={[type.muted, { marginTop: spacing.xs }]}>A short check-in to tune today's guidance.</Text>
+      <View style={styles.teaHeader}>
+        <Image
+          source={require('../assets/checkin-tea.jpg')}
+          style={{ position: 'absolute', top: 0, left: 0, width: '100%', height: '100%' }}
+          resizeMode="cover"
+        />
+        <View style={[StyleSheet.absoluteFill, { backgroundColor: 'rgba(20,10,5,0.45)' }]} pointerEvents="none" />
+        <View style={styles.teaHeaderContent}>
+          <Text style={[type.label, { color: 'rgba(236,232,223,0.8)' }]}>
+            Today, {new Date().toLocaleDateString(undefined, { weekday: 'long', month: 'short', day: 'numeric' })}
+          </Text>
+          <Text style={[type.h1, { color: '#ECE8DF', marginTop: spacing.sm }]}>How are you, really?</Text>
+          <Text style={[type.muted, { color: 'rgba(236,232,223,0.75)', marginTop: spacing.xs }]}>
+            The body keeps score. Five questions to read where you actually are.
+          </Text>
+        </View>
+      </View>
 
       {dimensions.map(d => (
         <View key={d.key} style={styles.section}>
@@ -85,6 +99,19 @@ export default function CheckIn() {
 function makeStyles(colors, spacing, radius) {
 return StyleSheet.create({
   container: { padding: spacing.lg },
+  teaHeader: {
+    marginHorizontal: -spacing.lg,
+    marginTop: -spacing.lg,
+    marginBottom: spacing.lg,
+    height: 300,
+    overflow: 'hidden',
+  },
+  teaHeaderContent: {
+    position: 'absolute',
+    bottom: 0, left: 0, right: 0,
+    padding: spacing.lg,
+    paddingBottom: spacing.xl,
+  },
   section: { marginTop: spacing.xl, paddingLeft: spacing.md, borderLeftWidth: 3, borderLeftColor: colors.accentAlt },
   scaleRow: { flexDirection: 'row', justifyContent: 'space-between', marginTop: spacing.md },
   hintRow: { flexDirection: 'row', justifyContent: 'space-between', marginTop: spacing.xs },
@@ -115,6 +142,6 @@ return StyleSheet.create({
     borderRadius: radius.pill,
     alignItems: 'center',
   },
-  primaryBtnText: { color: colors.bg, fontWeight: '700', fontSize: 16 },
+  primaryBtnText: { color: colors.bg, fontFamily: 'Inter_700Bold', fontSize: 16 },
 });
 }

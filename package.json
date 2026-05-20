@@ -10,9 +10,12 @@
     "build:web": "expo export -p web"
   },
   "dependencies": {
+    "@expo-google-fonts/inter": "^0.4.2",
+    "@expo-google-fonts/playfair-display": "^0.4.2",
     "@react-native-async-storage/async-storage": "2.2.0",
     "expo": "~54.0.0",
     "expo-constants": "~18.0.0",
+    "expo-font": "~14.0.11",
     "expo-linking": "~8.0.11",
     "expo-navigation-bar": "~5.0.10",
     "expo-router": "~6.0.23",

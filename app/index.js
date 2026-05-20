@@ -1,4 +1,4 @@
-import { View, Text, StyleSheet, Pressable, ScrollView, Share, Platform, Linking, TextInput } from 'react-native';
+import { View, Text, StyleSheet, Pressable, ScrollView, Share, Platform, Linking, TextInput, Image } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { useState, useEffect } from 'react';
 import { useWindowDimensions } from 'react-native';
@@ -11,15 +11,18 @@ import { intentionSuggestions } from '../data/content/intentions';
 import { currentMythbuster } from '../data/content/mythbusters';
 import LogoFull from '../components/LogoFull';
 import LogoAlt from '../components/LogoAlt';
+import { BotanicalDivider, CornerSprig } from '../components/BotanicalAccent';
 
 export default function Home() {
   const { theme: { colors, spacing, radius, type }, brandStyle } = useTheme();
   const { width: windowWidth } = useWindowDimensions();
   const contentWidth = Platform.OS === 'web' ? Math.min(windowWidth, 480) : windowWidth;
-  const logoWidth = contentWidth - spacing.lg * 2;
+  const heroWidth = Platform.OS !== 'web' ? contentWidth : contentWidth - spacing.lg * 2;
+  const heroLogoWidth = heroWidth - spacing.lg * 2;
+  const innerWidth = contentWidth - spacing.lg * 2;
   const season = currentSeason();
   const router = useRouter();
-  const styles = makeStyles(colors, spacing, radius);
+  const styles = makeStyles(colors, spacing, radius, heroWidth);
 
   // null = loading, false = no result, string = saved dosha
   const [savedDosha, setSavedDosha] = useState(null);
@@ -33,38 +36,57 @@ export default function Home() {
   return (
     <SafeAreaView edges={['bottom']} style={styles.safeArea}>
       <ScrollView contentContainerStyle={styles.container}>
-        {brandStyle === 'lettermark' ? (
-          <LogoAlt width={logoWidth} />
-        ) : (
-          <LogoFull width={logoWidth} />
-        )}
+        <View style={styles.heroSection}>
+          <Image
+            source={require('../assets/hero-candles.jpg')}
+            style={{ position: 'absolute', top: 0, left: 0, width: '100%', height: '100%' }}
+            resizeMode="cover"
+          />
+          <View style={[StyleSheet.absoluteFill, { backgroundColor: 'rgba(20,10,5,0.28)' }]} pointerEvents="none" />
+          <View style={styles.heroOverlay} pointerEvents="box-none">
+            <View style={styles.aboutRow}>
+              <Link href="/learn" asChild>
+                <Pressable><Text style={[styles.aboutLink, { color: 'rgba(236,232,223,0.9)' }]}>Learn</Text></Pressable>
+              </Link>
+              <Text style={[styles.aboutLinkDivider, { color: 'rgba(236,232,223,0.5)' }]}>·</Text>
+              <Link href="/about" asChild>
+                <Pressable><Text style={[styles.aboutLink, { color: 'rgba(236,232,223,0.9)' }]}>About Thea</Text></Pressable>
+              </Link>
+            </View>
+          </View>
+        </View>
 
-        <View style={styles.aboutRow}>
-          <Link href="/learn" asChild>
-            <Pressable>
-              <Text style={styles.aboutLink}>Learn</Text>
-            </Pressable>
-          </Link>
-          <Text style={styles.aboutLinkDivider}>·</Text>
-          <Link href="/about" asChild>
-            <Pressable>
-              <Text style={styles.aboutLink}>About Thea</Text>
-            </Pressable>
-          </Link>
+        <View style={{ marginTop: spacing.lg }}>
+          {brandStyle === 'lettermark' ? (
+            <LogoAlt width={heroLogoWidth} />
+          ) : (
+            <LogoFull width={heroLogoWidth} />
+          )}
         </View>
 
         <Text style={[type.h1, { marginTop: spacing.lg }]}>
           Live with{'\n'}your constitution.
         </Text>
         <Text style={[type.muted, { marginTop: spacing.md }]}>
-          A daily ayurvedic companion. Discover your dosha, check in with body and mind, and receive food, herb, and meditation guidance tuned to who you are and the season around you.
+          Nothing is for everyone and everything is for someone. Your dosha, the season, what your body is doing today all shape the guidance. Check in daily. It changes because you do.
         </Text>
 
+        <BotanicalDivider color={colors.sage} borderColor={colors.border} width={innerWidth} />
+
         <View style={styles.seasonCard}>
-          <Text style={type.label}>Current Season</Text>
-          <Text style={[type.h2, { marginTop: spacing.xs }]}>{season.name}</Text>
-          <Text style={[type.muted, { marginTop: spacing.xs }]}>{season.focus}</Text>
+          <Image
+            source={require('../assets/botanicals-warm.jpg')}
+            style={{ position: 'absolute', top: 0, left: 0, width: '100%', height: '100%' }}
+            resizeMode="cover"
+          />
+          <View style={[StyleSheet.absoluteFill, { backgroundColor: 'rgba(30,15,5,0.72)' }]} pointerEvents="none" />
+          <CornerSprig color="#ECE8DF" size={44} style={{ position: 'absolute', top: 0, right: 0 }} />
+          <Text style={[type.label, { color: 'rgba(236,232,223,0.8)' }]}>Current Season</Text>
+          <Text style={[type.h2, { color: '#ECE8DF', marginTop: spacing.xs }]}>{season.name}</Text>
+          <Text style={[type.muted, { color: 'rgba(236,232,223,0.75)', marginTop: spacing.xs }]}>{season.focus}</Text>
         </View>
+
+        <BotanicalDivider color={colors.sage} borderColor={colors.border} width={innerWidth} />
 
         <MythbusterCard />
 
@@ -189,6 +211,7 @@ function MythbusterCard() {
 
   return (
     <View style={styles.mythbusterCard}>
+      <CornerSprig color={colors.saffron} size={44} style={{ position: 'absolute', top: 0, right: 0 }} />
       <Text style={type.label}>This Week</Text>
       <Text style={[type.h2, { marginTop: spacing.xs }]}>Mythbusters</Text>
       <Text style={[type.body, { marginTop: spacing.sm, fontStyle: 'italic' }]}>
@@ -264,17 +287,29 @@ function IntentionCard({ dosha }) {
   );
 }
 
-function makeStyles(colors, spacing, radius) {
+function makeStyles(colors, spacing, radius, heroWidth = 390) {
 return StyleSheet.create({
   safeArea: { flex: 1, backgroundColor: colors.bg },
   container: { padding: spacing.lg },
+  heroSection: {
+    height: Math.round(heroWidth * 0.9),
+    ...Platform.select({
+      web: { borderRadius: radius.lg, overflow: 'hidden', marginBottom: spacing.xs },
+      default: { marginHorizontal: -spacing.lg, marginTop: -spacing.lg, overflow: 'hidden' },
+    }),
+  },
+  heroOverlay: {
+    padding: spacing.lg,
+  },
   seasonCard: {
     marginTop: spacing.xl,
     padding: spacing.lg,
     backgroundColor: colors.surface,
     borderRadius: radius.lg,
     borderLeftWidth: 3,
-    borderLeftColor: colors.accentAlt,
+    borderLeftColor: colors.sage,
+    overflow: 'hidden',
+    minHeight: 160,
   },
   returningBlock: {
     marginTop: spacing.xl,
@@ -286,7 +321,7 @@ return StyleSheet.create({
     borderRadius: radius.pill,
     alignItems: 'center',
   },
-  primaryBtnText: { color: colors.bg, fontWeight: '700', fontSize: 16 },
+  primaryBtnText: { color: colors.bg, fontFamily: 'Inter_700Bold', fontSize: 16 },
   secondaryBtn: {
     marginTop: spacing.md,
     backgroundColor: colors.surface,
@@ -296,18 +331,17 @@ return StyleSheet.create({
     borderWidth: 1,
     borderColor: colors.border,
   },
-  secondaryBtnText: { color: colors.text, fontWeight: '600', fontSize: 16 },
+  secondaryBtnText: { color: colors.text, fontFamily: 'Inter_600SemiBold', fontSize: 16 },
   ghostBtn: {
     marginTop: spacing.md,
     paddingVertical: spacing.md,
     alignItems: 'center',
   },
-  ghostBtnText: { color: colors.textMuted, fontSize: 14 },
+  ghostBtnText: { color: colors.textMuted, fontFamily: 'Inter_400Regular', fontSize: 14 },
   aboutRow: {
     flexDirection: 'row',
     justifyContent: 'flex-end',
     alignItems: 'center',
-    marginTop: spacing.sm,
     gap: spacing.sm,
   },
   aboutLink: {
@@ -332,7 +366,7 @@ return StyleSheet.create({
     borderWidth: 1,
     borderColor: colors.border,
   },
-  downloadBtnText: { color: colors.text, fontWeight: '600', fontSize: 15 },
+  downloadBtnText: { color: colors.text, fontFamily: 'Inter_600SemiBold', fontSize: 15 },
   mythbusterCard: {
     marginTop: spacing.lg,
     padding: spacing.lg,
@@ -340,6 +374,7 @@ return StyleSheet.create({
     borderRadius: radius.lg,
     borderLeftWidth: 3,
     borderLeftColor: colors.saffron,
+    overflow: 'hidden',
   },
   intentionCard: {
     marginTop: spacing.lg,

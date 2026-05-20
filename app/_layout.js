@@ -1,5 +1,8 @@
 import { useEffect } from 'react';
 import { Platform, View, Text, Pressable } from 'react-native';
+import { useFonts } from 'expo-font';
+import { PlayfairDisplay_400Regular, PlayfairDisplay_600SemiBold, PlayfairDisplay_700Bold } from '@expo-google-fonts/playfair-display';
+import { Inter_400Regular, Inter_600SemiBold, Inter_700Bold } from '@expo-google-fonts/inter';
 import { Stack } from 'expo-router';
 import { StatusBar } from 'expo-status-bar';
 import * as NavigationBar from 'expo-navigation-bar';
@@ -7,6 +10,7 @@ import { ThemeProvider, useTheme } from '../context/ThemeContext';
 import { ViewModeProvider, useViewMode } from '../context/ViewModeContext';
 import LogoMark from '../components/LogoMark';
 import WebLayout from '../components/WebLayout';
+import BottomNav from '../components/BottomNav';
 
 function HeaderLogo() {
   return <LogoMark size={36} compact />;
@@ -59,13 +63,17 @@ function AppNavigator() {
       }}
     >
       {/* index: show header on web app-view so the toggle is accessible */}
-      <Stack.Screen name="index" options={{ headerShown: isWeb && !isWebMode }} />
+      <Stack.Screen name="index"           options={{ headerShown: isWeb && !isWebMode }} />
+      <Stack.Screen name="journey"         options={{ headerShown: isWeb && !isWebMode }} />
+      <Stack.Screen name="tools"           options={{ headerShown: isWeb && !isWebMode }} />
+      <Stack.Screen name="journal"         options={{ headerShown: isWeb && !isWebMode }} />
+      <Stack.Screen name="you"             options={{ headerShown: isWeb && !isWebMode }} />
       <Stack.Screen name="quiz" />
       <Stack.Screen name="result" />
       <Stack.Screen name="checkin" />
       <Stack.Screen name="recommendations" />
       <Stack.Screen name="about" />
-      <Stack.Screen name="learn" options={{ title: 'Learn' }} />
+      <Stack.Screen name="learn" />
     </Stack>
   );
 
@@ -82,10 +90,11 @@ function AppNavigator() {
           : { flex: 1 }
         }>
           <View style={isWeb
-            ? { width: '100%', maxWidth: 480, height: '100vh' }
-            : { flex: 1 }
+            ? { width: '100%', maxWidth: 480, height: '100vh', flexDirection: 'column' }
+            : { flex: 1, flexDirection: 'column' }
           }>
-            {stack}
+            <View style={{ flex: 1 }}>{stack}</View>
+            <BottomNav />
           </View>
         </View>
       )}
@@ -94,6 +103,17 @@ function AppNavigator() {
 }
 
 export default function RootLayout() {
+  const [fontsLoaded] = useFonts({
+    PlayfairDisplay_400Regular,
+    PlayfairDisplay_600SemiBold,
+    PlayfairDisplay_700Bold,
+    Inter_400Regular,
+    Inter_600SemiBold,
+    Inter_700Bold,
+  });
+
+  if (!fontsLoaded) return null;
+
   return (
     <ThemeProvider>
       <ViewModeProvider>

@@ -2,11 +2,12 @@
 // All text marked [DRAFT] needs Thea's review and approval before shipping.
 // Photo placeholder is intentionally blank — swap in assets/thea.jpg when ready.
 
-import { View, Text, StyleSheet, Pressable, ScrollView } from 'react-native';
+import { View, Text, StyleSheet, Pressable, ScrollView, Platform, useWindowDimensions, Image } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { useTheme } from '../context/ThemeContext';
 import { themes } from '../theme';
 import InstagramFeed from '../components/InstagramFeed';
+import { CornerSprig, LeafSprig, BotanicalDivider } from '../components/BotanicalAccent';
 
 const SWATCHES = [
   { name: 'cream',    dot: '#8B7287' },
@@ -17,14 +18,31 @@ const SWATCHES = [
 export default function About() {
   const { theme, themeName, setThemeName, brandStyle, setBrandStyle } = useTheme();
   const { colors: c, spacing, radius, type } = theme;
+  const { width: windowWidth } = useWindowDimensions();
+  const innerWidth = (Platform.OS === 'web' ? Math.min(windowWidth, 480) : windowWidth) - spacing.lg * 2;
   const styles = makeStyles(c, spacing, radius);
 
   return (
     <SafeAreaView edges={['bottom']} style={{ flex: 1, backgroundColor: c.bg }}>
       <ScrollView contentContainerStyle={styles.container}>
 
-        {/* Photo */}
-        <View style={styles.photoPlaceholder}>
+        {/* Archway header — full bleed mood image */}
+        <View style={styles.archwayBanner}>
+          <Image
+            source={require('../assets/about-archway.jpg')}
+            style={{ position: 'absolute', top: 0, left: 0, width: '100%', height: '100%' }}
+            resizeMode="cover"
+          />
+          <View style={[StyleSheet.absoluteFill, { backgroundColor: 'rgba(10,5,0,0.52)' }]} pointerEvents="none" />
+        </View>
+
+        {/* Photo — swap in assets/thea.jpg when ready */}
+        <View style={styles.photoFrame}>
+          <CornerSprig color={c.olive} size={40} style={{ position: 'absolute', top: 6, right: 6 }} />
+          <View style={{ position: 'absolute', bottom: 6, left: 6, transform: [{ rotate: '180deg' }] }}>
+            <CornerSprig color={c.olive} size={40} />
+          </View>
+          <LeafSprig color={c.honeyAmber} size={44} />
           <Text style={styles.photoLabel}>Photo</Text>
         </View>
 
@@ -50,7 +68,7 @@ export default function About() {
           </Text>
         </View>
 
-        <View style={styles.divider} />
+        <BotanicalDivider color={c.sage} borderColor={c.border} width={innerWidth} />
 
         {/* Book a session */}
         <Text style={[type.label, { textAlign: 'center' }]}>Work with Thea</Text>
@@ -62,7 +80,7 @@ export default function About() {
         </Pressable>
 
         {/* Theme switcher — commented out, defaulting to lavender. Uncomment to re-enable.
-        <View style={styles.divider} />
+        <BotanicalDivider color={c.sage} borderColor={c.border} width={innerWidth} />
         <Text style={[type.label, { textAlign: 'center' }]}>App Theme</Text>
         <View style={styles.swatchRow}>
           {SWATCHES.map(s => {
@@ -94,7 +112,7 @@ export default function About() {
         */}
 
         {/* Brand style toggle — commented out, defaulting to wordmark. Uncomment to re-enable.
-        <View style={styles.divider} />
+        <BotanicalDivider color={c.sage} borderColor={c.border} width={innerWidth} />
         <Text style={[type.label, { textAlign: 'center' }]}>Branding</Text>
         <View style={styles.brandToggle}>
           {['wordmark', 'lettermark'].map(opt => {
@@ -117,7 +135,17 @@ export default function About() {
         </Text>
         */}
 
-        <View style={styles.divider} />
+        {/* Aspirational image — the future center */}
+        <View style={styles.tubBanner}>
+          <Image
+            source={require('../assets/soaking-tub.jpg')}
+            style={{ position: 'absolute', top: 0, left: 0, width: '100%', height: '100%' }}
+            resizeMode="cover"
+          />
+          <View style={[StyleSheet.absoluteFill, { backgroundColor: 'rgba(10,5,0,0.28)' }]} pointerEvents="none" />
+        </View>
+
+        <BotanicalDivider color={c.sage} borderColor={c.border} width={innerWidth} />
 
         <InstagramFeed />
 
@@ -130,18 +158,32 @@ function makeStyles(c, spacing, radius) {
   return StyleSheet.create({
     container: {
       padding: spacing.lg,
-      paddingTop: spacing.xl,
+      paddingTop: 0,
       alignItems: 'center',
     },
-    photoPlaceholder: {
+    archwayBanner: {
+      alignSelf: 'stretch',
+      marginHorizontal: -spacing.lg,
+      height: 320,
+      marginBottom: spacing.xl,
+    },
+    tubBanner: {
+      alignSelf: 'stretch',
+      height: 300,
+      marginBottom: spacing.lg,
+      borderRadius: radius.lg,
+      overflow: 'hidden',
+    },
+    photoFrame: {
       width: 140,
       height: 180,
       borderRadius: radius.lg,
       backgroundColor: c.surface,
       borderWidth: 1,
-      borderColor: c.border,
+      borderColor: c.honeyAmber,
       justifyContent: 'center',
       alignItems: 'center',
+      overflow: 'hidden',
     },
     photoLabel: {
       color: c.border,
@@ -157,13 +199,6 @@ function makeStyles(c, spacing, radius) {
       marginTop: spacing.md,
       lineHeight: 26,
       color: c.textMuted,
-    },
-    divider: {
-      alignSelf: 'stretch',
-      height: 1,
-      backgroundColor: c.border,
-      marginTop: spacing.xl,
-      marginBottom: spacing.xl,
     },
     bookBtn: {
       marginTop: spacing.lg,

@@ -127,9 +127,37 @@ Data shape: title (the myth, plainly stated), Thea's take, practical reframe, pu
 
 ---
 
+## Navigation expansion — four new top-level sections
+
+**13. Journey**
+A personal progress view. Likely home to check-in history, dosha trends over time, and the user's evolving relationship with the practice. Content and shape TBD — requires a conversation with Thea about what "progress" looks like in ayurveda (it's not a linear score). Do not build until that framing is clear.
+
+**14. Tools**
+A curated toolkit of standalone ayurvedic practices — things the user can reach for on demand rather than as part of a daily flow. Candidates from the voice guide: self-massage (abhyanga), breathwork, meditation prompts, music/vibration. Shape: a grid or list of tool cards, each opening a focused practice view. Content dependency: Thea to define which tools belong here and in what form.
+
+**15. Journal**
+A free-form daily writing space, separate from the check-in note field. Could eventually connect to the check-in (surfacing yesterday's note before today's check-in) or the intention ("just for today" anchoring a longer reflection). Keep it simple — a dated text entry, stored locally. No prompts enforced; optional gentle framing from Thea's voice.
+
+**16. You**
+The personal profile section. Home for: dosha result and breakdown, quiz retake, saved intentions, and eventually session history and booking. Currently some of this lives on the home screen (returning user state) — this section gives it a permanent home and clears the home screen of account-management concerns.
+
+**Confirmed nav structure (May 2026):**
+
+| Tab | What lives there |
+|-----|-----------------|
+| Home | Home screen — unchanged |
+| Journey | TBD — requires Thea's framing on what "progress" means |
+| Tools | Learn · About Thea |
+| Journal | Free-form daily writing |
+| You | Dosha Quiz · Daily Check-in · Today's Guidance (Recommendations) |
+
+*Current routes (quiz, checkin, recommendations, learn, about) don't move or change — they just get new homes within this tab structure. Nav restructure touches `app/_layout.js` and `components/WebLayout.js`. Do the nav shell first, then build Journey and Journal as new screens.*
+
+---
+
 ## Architectural work — do when needed, not preemptively
 
-**12. Check-in history view.**
+**17. Check-in history view.**
 Hold until real users have at least a week of data. A simple trend of morning hunger over time is the first diagnostically interesting view. Don't over-design before the data exists.
 
 ---

@@ -5,12 +5,16 @@ import { useViewMode } from '../context/ViewModeContext';
 import LogoMark from './LogoMark';
 
 const NAV_LINKS = [
-  { label: 'Home',            href: '/' },
-  { label: 'Dosha Quiz',      href: '/quiz' },
-  { label: 'Daily Check-in',  href: '/checkin' },
-  { label: 'Today\'s Guidance', href: '/recommendations' },
-  { label: 'Learn',           href: '/learn' },
-  { label: 'About Thea',      href: '/about' },
+  { label: 'Home',              href: '/' },
+  { label: 'Journey',           href: '/journey' },
+  { label: 'Tools',             href: '/tools' },
+  { label: 'Learn',             href: '/learn',            indent: true },
+  { label: 'About Thea',        href: '/about',            indent: true },
+  { label: 'Journal',           href: '/journal' },
+  { label: 'You',               href: '/you' },
+  { label: 'Dosha Quiz',        href: '/quiz',             indent: true },
+  { label: 'Daily Check-in',    href: '/checkin',          indent: true },
+  { label: 'Today\'s Guidance', href: '/recommendations',  indent: true },
 ];
 
 export default function WebLayout({ children }) {
@@ -38,11 +42,12 @@ export default function WebLayout({ children }) {
                 onPress={() => router.push(link.href)}
                 style={({ pressed }) => [
                   styles.navLink,
+                  link.indent && styles.navLinkIndent,
                   active && styles.navLinkActive,
                   pressed && styles.navLinkPressed,
                 ]}
               >
-                <Text style={[styles.navLinkText, active && styles.navLinkTextActive]}>
+                <Text style={[styles.navLinkText, link.indent && styles.navLinkTextIndent, active && styles.navLinkTextActive]}>
                   {link.label}
                 </Text>
               </Pressable>
@@ -85,10 +90,13 @@ function makeStyles(c, spacing, radius) {
       marginTop: spacing.xl,
     },
     navLink: {
-      paddingVertical: spacing.sm + 2,
+      paddingVertical: spacing.sm,
       paddingHorizontal: spacing.md,
       borderRadius: radius.md,
-      marginBottom: spacing.xs,
+      marginBottom: 2,
+    },
+    navLinkIndent: {
+      paddingLeft: spacing.lg + spacing.sm,
     },
     navLinkActive: {
       backgroundColor: c.bg,
@@ -98,12 +106,15 @@ function makeStyles(c, spacing, radius) {
     },
     navLinkText: {
       color: c.textMuted,
+      fontFamily: 'Inter_400Regular',
       fontSize: 15,
-      fontWeight: '500',
+    },
+    navLinkTextIndent: {
+      fontSize: 13,
     },
     navLinkTextActive: {
       color: c.text,
-      fontWeight: '700',
+      fontFamily: 'Inter_700Bold',
     },
     toggleBtn: {
       paddingVertical: spacing.sm,
@@ -115,8 +126,8 @@ function makeStyles(c, spacing, radius) {
     },
     toggleBtnText: {
       color: c.textMuted,
+      fontFamily: 'Inter_600SemiBold',
       fontSize: 12,
-      fontWeight: '600',
       letterSpacing: 0.3,
     },
     content: {

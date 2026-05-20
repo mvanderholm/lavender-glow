@@ -6,15 +6,15 @@ const THEME_KEY = '@lavender-glow/theme';
 const BRAND_KEY = '@lavender-glow/brand';
 
 const ThemeContext = createContext({
-  theme: themes.lavender,
-  themeName: 'lavender',
+  theme: themes.cream,
+  themeName: 'cream',
   setThemeName: () => {},
   brandStyle: 'wordmark',
   setBrandStyle: () => {},
 });
 
 export function ThemeProvider({ children }) {
-  const [themeName, setThemeNameState] = useState('lavender');
+  const [themeName, setThemeNameState] = useState('cream');
   const [brandStyle, setBrandStyleState] = useState('wordmark');
 
   // Theme toggle is currently disabled (see about.js). Reading a stale non-lavender
